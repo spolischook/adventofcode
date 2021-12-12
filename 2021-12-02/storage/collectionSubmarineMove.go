@@ -16,6 +16,22 @@ type SubmarineMove struct {
 	z int
 }
 
+func (c SubmarineMoveCollection) Aim() SubmarineMove {
+	var aim int
+	sm := SubmarineMove{}
+	calc := func(sm *SubmarineMove, sm2 SubmarineMove) {
+		aim += sm2.z
+		sm.x += sm2.x
+		sm.z += aim*sm2.x
+	}
+	calc(&sm, c.Get())
+	for c.Next() {
+		calc(&sm, c.Get())
+	}
+
+	return sm
+}
+
 func (c SubmarineMoveCollection) Sum() SubmarineMove {
 	m := c.Get()
 	for c.Next() {

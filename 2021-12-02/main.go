@@ -19,4 +19,9 @@ func main() {
 	sum := data.Sum()
 	fmt.Println(sum)
 	fmt.Println(sum.Multiply())
+
+	// Part 2
+	sum2 := data.Aim()
+	fmt.Println(sum2)
+	fmt.Println(sum2.Multiply())
 }
