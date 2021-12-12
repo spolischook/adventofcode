@@ -3,15 +3,14 @@ package storage
 import (
 	"bufio"
 	"os"
-	"strconv"
 )
 
 type FileProvider struct{}
 
-func (p FileProvider) GetData() (data IntCollection, err error) {
-	f, err := os.Open("/Users/spolischook/go/study/adventofcode/day1/data.txt") // get file path from args
+func (p FileProvider) GetData(file string, data Data) (err error) {
+	f, err := os.Open(file)
 	if err != nil {
-		return IntCollection{}, err
+		return err
 	}
 
 	defer f.Close()
@@ -19,16 +18,15 @@ func (p FileProvider) GetData() (data IntCollection, err error) {
 	scanner := bufio.NewScanner(f) // scanner's capacity for one line is 64K
 
 	for scanner.Scan() {
-		d, err := strconv.Atoi(scanner.Text())
+		err = data.Append(scanner.Text())
 		if err != nil {
-			continue
+			return err
 		}
-		data.Append(d)
 	}
 
 	if err := scanner.Err(); err != nil {
-		return IntCollection{}, err
+		return err
 	}
 
-	return data, err
+	return err
 }

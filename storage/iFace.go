@@ -1,5 +1,10 @@
 package storage
 
 type DataProvider interface {
-	GetData() (IntCollection, error)
+	GetData(resource string, data Data) (error)
+}
+
+type Data interface {
+	Append(el string) error
+	Next() bool
 }

@@ -9,7 +9,7 @@ import (
 const url = "https://adventofcode.com/2021/day/1/input"
 
 type HttpProvider struct{}
-func (p HttpProvider) GetData() (IntCollection, error) {
+func (p HttpProvider) GetData(url string, d Data) (IntCollection, error) {
 	resp, err := http.Get(url)
 	if err != nil {
 		return IntCollection{}, err
